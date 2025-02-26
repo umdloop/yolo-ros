@@ -1,0 +1,5 @@
+[console_scripts]
+inference = my_package.img_inference:main
+my_node = my_package.my_node:main
+yolo_ros = my_package.image_publisher:main
+

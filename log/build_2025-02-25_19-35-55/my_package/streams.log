@@ -1,0 +1,24 @@
+[1.322s] Invoking command in '/home/umdloop/Downloads/ros2_ws/src/my_package': PYTHONPATH=/home/umdloop/Downloads/ros2_ws/build/my_package/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/umdloop/Downloads/ros2_ws/install/my_package/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_package build --build-base /home/umdloop/Downloads/ros2_ws/build/my_package/build install --record /home/umdloop/Downloads/ros2_ws/build/my_package/install.log --single-version-externally-managed install_data
+[1.798s] running egg_info
+[1.799s] writing ../../build/my_package/my_package.egg-info/PKG-INFO
+[1.799s] writing dependency_links to ../../build/my_package/my_package.egg-info/dependency_links.txt
+[1.800s] writing entry points to ../../build/my_package/my_package.egg-info/entry_points.txt
+[1.800s] writing requirements to ../../build/my_package/my_package.egg-info/requires.txt
+[1.801s] writing top-level names to ../../build/my_package/my_package.egg-info/top_level.txt
+[1.804s] reading manifest file '../../build/my_package/my_package.egg-info/SOURCES.txt'
+[1.806s] writing manifest file '../../build/my_package/my_package.egg-info/SOURCES.txt'
+[1.806s] running build
+[1.806s] running build_py
+[1.807s] running install
+[1.807s] running install_lib
+[1.809s] running install_data
+[1.810s] copying package.xml -> /home/umdloop/Downloads/ros2_ws/install/my_package/share/my_package
+[1.810s] running install_egg_info
+[1.813s] removing '/home/umdloop/Downloads/ros2_ws/install/my_package/lib/python3.10/site-packages/my_package-0.0.0-py3.10.egg-info' (and everything under it)
+[1.814s] Copying ../../build/my_package/my_package.egg-info to /home/umdloop/Downloads/ros2_ws/install/my_package/lib/python3.10/site-packages/my_package-0.0.0-py3.10.egg-info
+[1.816s] running install_scripts
+[1.855s] Installing inference script to /home/umdloop/Downloads/ros2_ws/install/my_package/lib/my_package
+[1.855s] Installing my_node script to /home/umdloop/Downloads/ros2_ws/install/my_package/lib/my_package
+[1.855s] Installing yolo_ros script to /home/umdloop/Downloads/ros2_ws/install/my_package/lib/my_package
+[1.856s] writing list of installed files to '/home/umdloop/Downloads/ros2_ws/build/my_package/install.log'
+[1.924s] Invoked command in '/home/umdloop/Downloads/ros2_ws/src/my_package' returned '0': PYTHONPATH=/home/umdloop/Downloads/ros2_ws/build/my_package/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/umdloop/Downloads/ros2_ws/install/my_package/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_package build --build-base /home/umdloop/Downloads/ros2_ws/build/my_package/build install --record /home/umdloop/Downloads/ros2_ws/build/my_package/install.log --single-version-externally-managed install_data
