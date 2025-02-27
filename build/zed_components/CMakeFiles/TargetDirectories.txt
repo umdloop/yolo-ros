@@ -1,0 +1,12 @@
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/uninstall.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/zed_components_uninstall.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/all_zed_components_files.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/zed_camera_component.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/zed_camera_one_component.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/test.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/edit_cache.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/rebuild_cache.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/list_install_components.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/install.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/install/local.dir
+/home/umdloop/Downloads/ros2_ws/build/zed_components/CMakeFiles/install/strip.dir

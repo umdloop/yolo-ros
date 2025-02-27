@@ -2,56 +2,60 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image as RosImage
 from cv_bridge import CvBridge
+import cv2
 import pyzed.sl as sl
-import numpy as np
 
-class ZEDPublisher(Node):
+class ZedPublisher(Node):
     def __init__(self):
         super().__init__('zed_publisher')
-
-        # ROS 2 Publishers
-        self.image_pub = self.create_publisher(RosImage, 'cam_in', 10)
-        self.depth_pub = self.create_publisher(RosImage, 'depth_in', 10)
-
-        # Initialize ZED Camera
+        self.publisher = self.create_publisher(RosImage, 'cam_in', 10)
+        self.bridge = CvBridge()
+        
         self.zed = sl.Camera()
         init_params = sl.InitParameters()
-        init_params.depth_mode = sl.DEPTH_MODE.PERFORMANCE
-        init_params.coordinate_units = sl.UNIT.METER  # Depth in meters
-
-        if self.zed.open(init_params) != sl.ERROR_CODE.SUCCESS:
-            self.get_logger().error("Failed to open ZED camera")
+        init_params.camera_resolution = sl.RESOLUTION.HD720
+        init_params.camera_fps = 30
+        init_params.depth_mode = sl.DEPTH_MODE.NONE
+        
+        err = self.zed.open(init_params)
+        if err != sl.ERROR_CODE.SUCCESS:
+            self.get_logger().error(f"Failed to open ZED camera: {err}")
             return
 
-        self.bridge = CvBridge()
-        self.timer = self.create_timer(1 / 30.0, self.publish_images)  # 30 FPS
+        self.image = sl.Mat()
+        self.timer = self.create_timer(1 / 30.0, self.publish_frame)
 
-    def publish_images(self):
+    def publish_frame(self):
         if self.zed.grab() == sl.ERROR_CODE.SUCCESS:
-            # Capture RGB image
-            image = sl.Mat()
-            self.zed.retrieve_image(image, sl.VIEW.LEFT)
-            frame = image.get_data()
+            self.zed.retrieve_image(self.image, sl.VIEW.LEFT)
+            frame = self.image.get_data()
+            if frame.ndim == 2:
+                frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+            elif frame.shape[2] == 4:
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGBA2BGR)
+            ros_image = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
+            self.publisher.publish(ros_image)
+            cv2.imshow("ZED Camera feed", frame)
+            if (cv2.waitKey(1) and 0xFF == ord('q')):
+                self.get_logger().info("Exiting...")
+                cv2.destroyAllWindows()
+        else:
+            self.get_logger().warn("Failed to grab ZED frame")
 
-            # Convert to ROS Image message
-            img_msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
-            self.image_pub.publish(img_msg)
-
-            # Capture depth map
-            depth = sl.Mat()
-            self.zed.retrieve_measure(depth, sl.MEASURE.DEPTH)
-            depth_array = depth.get_data().astype(np.float32)  # Convert depth to NumPy
-
-            # Convert depth to ROS message
-            depth_msg = self.bridge.cv2_to_imgmsg(depth_array, encoding='32FC1')
-            self.depth_pub.publish(depth_msg)
+        def __del__(self):
+            self.zed.close()
 
 def main():
     rclpy.init()
-    zed_publisher = ZEDPublisher()
-    rclpy.spin(zed_publisher)
+    zed_publisher = ZedPublisher()
+    
+    executor = rclpy.executors.SingleThreadedExecutor()
+    executor.add_node(zed_publisher)
+    executor.spin()
+    
     zed_publisher.destroy_node()
     rclpy.shutdown()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
